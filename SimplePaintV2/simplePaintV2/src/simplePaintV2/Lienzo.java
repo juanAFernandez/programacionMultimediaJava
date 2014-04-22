@@ -17,7 +17,9 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.Stroke;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 /**
@@ -38,25 +40,45 @@ public class Lienzo extends javax.swing.JPanel {
     Point aLinea, bLinea;
     ArrayList <Shape> vShape;
     
+    /*Variables globales de la clase Lienzo que nos serán
+     * útiles para modificar la figura 
+     */
     final static int PUNTO=1;
+    final static int LINEA=2;
+    final static int RECTANGULO=3;
+    final static int OVALO=4;
+    static int forma=PUNTO;
 
     private String figura="punto";
+    
+    
     private boolean relleno;
-    private int forma;
+
+    
     //Estilofinal  
     float dash1[] = {10.0f};
     final BasicStroke stroke;
     
-    private Shape shapeTemporal;
+    //T
+    private Shape figuraTemporal;
     
-    /** Creates new form Lienzo */
+    /** Constructor de lienzo */
     public Lienzo() {
         initComponents();
         this.setBackground(Color.white);
         vShape = new ArrayList<Shape>();
+        
         //Para que por defecto empiece con punto.
-        forma=PUNTO;
-        shapeTemporal=null;
+        
+        if(forma==PUNTO){
+            System.out.println("punto");
+        }
+        if(forma==LINEA){
+            System.out.println("linea");
+        }
+        
+        
+        figuraTemporal=null;
         stroke = new BasicStroke (7.0F, BasicStroke.CAP_BUTT, 
                                   BasicStroke.JOIN_BEVEL);
     }
@@ -71,39 +93,41 @@ public class Lienzo extends javax.swing.JPanel {
         return this.color; 
     }
     
-    //Para el control de la figura.
-
-    public void setFigura(String nuevaFigura){
-        this.figura=nuevaFigura;
-    }
-    public String getFigura(){
-        return this.figura;
-    }
+    //Para el control de la figura ya no necesitamos usar métodos ya 
+    //que usamos las variable globales de la clase.
     
     //Para el control del relleno.
-
     public void setRelleno(boolean nuevoEstado){
         this.relleno=nuevoEstado;
     }
     public boolean getRelleno(){
         return this.relleno;
     }
-    
-    
+       
     public void clear(){
         this.p=null;
     }
     
-    
-
-    
+    //Funcion para crear una figura y añadirla al vector de figuras (Shape=forma/figura)
     private void createShape(){
+        /*Vamos a aprovechar las variables globales de la clase para crear el tipo de
+         figura con un switch*/
         switch(forma){
-            case 1: //Punto
-                shapeTemporal = new Line2D.Float(p,p);
+            case PUNTO:
+               //Para el punto no hay una función específica y usamos Line2D con el mismo punto.
+               figuraTemporal = new Line2D.Float(p,p);
+                break;
+            case LINEA:
+                figuraTemporal = new Line2D.Float(aLinea, bLinea);
+                break;
+            case RECTANGULO:
+                figuraTemporal = new Rectangle2D.Double(p.getX(),p.getY(),1,1);
+                break;
+            case OVALO:
+                figuraTemporal = new Ellipse2D.Double(p.getX(),p.getY(),1,1);
                 break;
         }
-        vShape.add(shapeTemporal);
+        vShape.add(figuraTemporal);
     }
     
      @Override
@@ -111,10 +135,13 @@ public class Lienzo extends javax.swing.JPanel {
         super.paint(g);
         Graphics2D g2d = (Graphics2D)g;
         
+        //Establecemos el color general.
         g2d.setPaint(color);
         
-        //g2d.setStroke(stroke);
-        //Recorremos el vector de figuras
+        //Establecemos el estilo.
+        g2d.setStroke(stroke);
+        
+        //Recorremos el vector de figuras que fuimos llenando en createShape()
         for(Shape s:vShape) {
             if(relleno) 
                 g2d.fill(s);
@@ -177,7 +204,9 @@ public class Lienzo extends javax.swing.JPanel {
     }//GEN-LAST:event_formMouseDragged
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
+        this.createShape();
         repaint();
+        
         
     }//GEN-LAST:event_formMouseReleased
 

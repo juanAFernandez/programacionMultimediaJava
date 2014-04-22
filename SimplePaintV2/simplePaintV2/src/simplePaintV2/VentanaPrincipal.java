@@ -415,7 +415,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_botonVerdeActionPerformed
 
     private void NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoActionPerformed
-
+        /*
+         Tenemos un entorno multiventana, por tanto cada vez que pinchamos
+         en nuevo, debe crearse una ventana nueva (vi) y añadirse al
+         escritorio (DesktopPane), hacerse visible y volverse a pintar la ventana
+         para que aparezca.*/
         VentanaInterna vi = new VentanaInterna();
         escritorioCentro.add(vi);
         vi.setVisible(true);
@@ -427,27 +431,28 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.repaint();
     }//GEN-LAST:event_checkRellenoActionPerformed
 
+//Acción al pulsar el botón/icono del lapiz en la barra de herramientas superior.
     private void lapizToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lapizToggleButtonActionPerformed
+        //Escribimos "Punto" en la barra de estado inferior.
         this.labelEstado.setText("Punto");
-        //this.lienzo1.setFigura("punto");        
+        //Asignamos el tipo de figura punto en la clase Lienzo.
+        Lienzo.forma=Lienzo.PUNTO;
+        //Lo que hacíamos antes: this.lienzo1.setFigura("punto");        
     }//GEN-LAST:event_lapizToggleButtonActionPerformed
 
     private void lineaToggleBUttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lineaToggleBUttonActionPerformed
         this.labelEstado.setText("Linea");
-        //this.lienzo1.setFigura("linea");
+        Lienzo.forma=Lienzo.LINEA;
     }//GEN-LAST:event_lineaToggleBUttonActionPerformed
 
     private void rectanguloToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rectanguloToggleButtonActionPerformed
         this.labelEstado.setText("Rectángulo");
-        //this.lienzo1.p=null;
-        //this.lienzo1.aLinea=null;
-        //this.lienzo1.bLinea=null;
-        //this.lienzo1.setFigura("rectangulo");
+        Lienzo.forma=Lienzo.RECTANGULO;
     }//GEN-LAST:event_rectanguloToggleButtonActionPerformed
 
     private void ovaloToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ovaloToggleButtonActionPerformed
         this.labelEstado.setText("Ovalo");
-        //this.lienzo1.setFigura("ovalo");
+        Lienzo.forma=Lienzo.OVALO;
     }//GEN-LAST:event_ovaloToggleButtonActionPerformed
 
     private void checkEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkEditarActionPerformed
