@@ -1,22 +1,16 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * Lienzo.java
  *
  * Created on 18-mar-2014, 18:23:01
  */
 package clases;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
 /**
  *
- * @author juan antonio fernández sánchez
+ * @author Juan Antonio Fernández Sánchez
  */
 public class Lienzo extends javax.swing.JPanel {
 
@@ -31,11 +25,13 @@ public class Lienzo extends javax.swing.JPanel {
     Color color;
     Point aLinea, bLinea;
     
-
+    //Variable para controlar el tipo de figura que vamos a pintar.
     private String figura="punto";
+    
+    //Variable que controla si vamos a rellenar o no la figura.
     private boolean relleno;    
     
-    //Métodos de la variable.
+    //Métodos de la variable que controla el color.
     public void setColor(Color nuevoColor){
         this.color=nuevoColor;
     }
@@ -43,8 +39,7 @@ public class Lienzo extends javax.swing.JPanel {
         return this.color; 
     }
     
-    //Para el control de la figura.
-
+    //Métodos de la variable que controla el tipo de figura.
     public void setFigura(String nuevaFigura){
         this.figura=nuevaFigura;
     }
@@ -53,7 +48,6 @@ public class Lienzo extends javax.swing.JPanel {
     }
     
     //Para el control del relleno.
-
     public void setRelleno(boolean nuevoEstado){
         this.relleno=nuevoEstado;
     }
@@ -61,9 +55,11 @@ public class Lienzo extends javax.swing.JPanel {
         return this.relleno;
     }
     
-    
+    //Método que pone todas las variables a null.
     public void clear(){
         this.p=null;
+        this.aLinea=null;
+        this.bLinea=null;
     }
     
     
@@ -74,6 +70,7 @@ public class Lienzo extends javax.swing.JPanel {
     }
     
      @Override
+     //Método que hará que se pinte en el lienzo.
      public void paint (Graphics g){
         /*Dentro de paint siempre hay que comprobar que las variables
           *no son nulas. Hay que comprobarlas TODAS.
@@ -94,34 +91,37 @@ public class Lienzo extends javax.swing.JPanel {
         g.setColor(color);
 
         
-        //Si está pulsado el botón de circulo.
+        //Si se ha elegido pintar un punto.
         if(figura.equals("punto")){
             if(p!=null)
                 g.fillOval(p.x-10,p.y-10, 20, 20);
         }
+        //Si se ha elegido pintar una linea.
         if(figura.equals("linea")){
             if(aLinea!=null && bLinea!=null)
                 g.drawLine(aLinea.x, aLinea.y, bLinea.x, bLinea.y);
         }
+        //Si se ha elegido pintar un rectángulo
         if(figura.equals("rectangulo")){
-            if(relleno)
+            if(relleno)//Si el botón de relleno estaba pulsado
                if (aLinea.x <= bLinea.x)
                 g.fillRect(aLinea.x, aLinea.y, bLinea.x-aLinea.x, bLinea.y-aLinea.y);
                if (aLinea.x > bLinea.x) 
                  g.fillRect (bLinea.x, bLinea.y, aLinea.x-bLinea.x, aLinea.y-bLinea.y);
-            else
+            else //Si el botón de relleno no estaba pulsado
                if (aLinea.x <= bLinea.x)
                 g.drawRect(aLinea.x, aLinea.y, bLinea.x-aLinea.x, bLinea.y-aLinea.y);
                if (aLinea.x > bLinea.x) 
                  g.drawRect (bLinea.x, bLinea.y, aLinea.x-bLinea.x, aLinea.y-bLinea.y);
         }
+        //Si se ha elegido pintar un óvalo
         if(figura.equals("ovalo")){
-            if(relleno)
+            if(relleno) //Relleno
                 if (aLinea.x <= bLinea.x)
                 g.fillOval(aLinea.x, aLinea.y, bLinea.x-aLinea.x, bLinea.y-aLinea.y);
                if (aLinea.x > bLinea.x) 
                  g.fillOval (bLinea.x, bLinea.y, aLinea.x-bLinea.x, aLinea.y-bLinea.y);
-            else
+            else //No relleno
                 if (aLinea.x <= bLinea.x)
                 g.drawOval(aLinea.x, aLinea.y, bLinea.x-aLinea.x, bLinea.y-aLinea.y);
                if (aLinea.x > bLinea.x) 

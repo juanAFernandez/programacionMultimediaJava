@@ -54,9 +54,10 @@
             <Property name="text" type="java.lang.String" value="Edicion"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="verBarraEstado">
+            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="verBarraEstado">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Ver barra estado"/>
+                <Property name="selected" type="boolean" value="true"/>
+                <Property name="text" type="java.lang.String" value="ver barra de estado"/>
               </Properties>
             </MenuItem>
           </SubComponents>

@@ -1,10 +1,8 @@
-package clases;
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
+package clases;
 /**
  *
  * @author juan antonio fernández sánchez
