@@ -125,7 +125,7 @@ public class Lienzo extends javax.swing.JPanel {
                 break;
                 
             case LINEA:
-                figuraTemporal = new Line2D.Float(aLinea, bLinea);
+                figuraTemporal = new Line2D.Float(a, b);
                 break;
                 
             case RECTANGULO:
@@ -205,18 +205,19 @@ public class Lienzo extends javax.swing.JPanel {
     }//GEN-LAST:event_formMouseClicked
 
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
-        //aLinea=evt.getPoint();
+        a=evt.getPoint();
         
     }//GEN-LAST:event_formMousePressed
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
-        //bLinea=evt.getPoint();
+        //b=evt.getPoint();
         //repaint();
     }//GEN-LAST:event_formMouseDragged
 
     private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
-        //this.createShape();
-        //repaint();
+        b=evt.getPoint();
+        this.createShape();
+        repaint();
         
         
     }//GEN-LAST:event_formMouseReleased
